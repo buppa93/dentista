@@ -23,7 +23,7 @@ import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
-import Patiences from "views/Patiences.jsx";
+import PatiencesView from "views/PatiencesView.jsx";
 
 const dashboardRoutes = [
   {
@@ -79,7 +79,7 @@ const dashboardRoutes = [
     path: "/patiences",
     name: "Pazienti",
     icon: "pe-7s-user",
-    component: Patiences,
+    component: PatiencesView,
     layout: "/admin"
   },
   {

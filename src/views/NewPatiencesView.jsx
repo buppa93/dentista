@@ -24,19 +24,11 @@ import {
 
 import { Card } from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import BaseDataTable from "components/BaseDataTable/BaseDataTable.jsx";
 import PatienceRepository from "../repositories/PatienceRepository.jsx";
-
-const tableColums = [
-  'name',
-  'username',
-  'email',
-  'phone'
-];
 
 const repo = new PatienceRepository();
 
-class UserProfile extends Component {
+class NewPatiencesView extends Component {
 
   handleNewPatience = () => {
     alert('Handle new patient');
@@ -54,23 +46,17 @@ class UserProfile extends Component {
                 </Button>
               </Col>
               <Col md={4}>
-                Some Content Here
+                Nuovo Paziente
               </Col>
             </Row>
             <Col md={12}>
               <Card
                 plain
-                title="Elenco pazienti"
+                title="Nuovo Paziente"
                 category="Here is a subtitle for this table"
                 ctTableFullWidth
                 ctTableResponsive
-                content={
-                  <BaseDataTable
-                    columns={tableColums}
-                    repository={repo}
-                  >
-                  </BaseDataTable>
-                }
+                content={"Porco Dio"}
               />
             </Col>
           </Row>
@@ -80,4 +66,4 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default NewPatiencesView;
