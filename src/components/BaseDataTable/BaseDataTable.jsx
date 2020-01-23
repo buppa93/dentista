@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from "react-bootstrap";
+import Spinner from "../Spinner/Spinner";
 
 class BaseDataTable extends Component {
-
-    constructor(props) {
-        super(props);
-        this.setState({rows: null});
-    }
 
     handleFetchData = async () => {
         let dataFetched = null;
@@ -17,47 +13,46 @@ class BaseDataTable extends Component {
     }
 
     async componentDidMount() {
+        this.setState({});
         await this.handleFetchData();
-        console.log('_________________DATA_FETCHED________________');
-        console.log(this.state.rows);
     }
 
     render() {
-        const {
-            rows
-          } = this.state;
-        //console.log(this.state.rows);
-        if(rows) {
-            return (
-                <Table hover> {rows || 'Unknow'}
-                    {/* <thead>
-                        <tr>
+        if(this.state) {
+            if(this.state.rows) {
+                return (
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                {
+                                    this.props.columns.map((value, key) => {
+                                        return <th key={key}>{value}</th>;
+                                    })
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
                             {
-                                this.props.columns.map((prop, key) => {
-                                    return <th key={key}>{prop}</th>;
+                                this.state.rows.map((prop, key) => {
+                                    return (
+                                        <tr key={key}>
+                                            {
+                                                this.props.columns.map( value => {
+                                                    return <td key={key}>{prop[value]}</td>;
+                                                })
+                                            }
+                                        </tr>
+                                    );
                                 })
                             }
-                          </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            (this.state.rows !== null) ? this.state.rows.map((prop, key) => {
-                                return (
-                                    <tr key={key}>
-                                        {
-                                            prop.map((prop, key) => {
-                                                return <td key={key}>{prop}</td>;
-                                            })
-                                        }
-                                    </tr>
-                                );
-                            }) : 'Data'
-                        }
-                    </tbody> */}
-                </Table>
-            );
+                        </tbody>
+                    </Table>
+                );
+            } else {
+                return <Spinner></Spinner>;
+            }
         } else {
-            return ('Unkown');
+            return <Spinner></Spinner>;
         }
     }
 }
