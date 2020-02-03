@@ -24,6 +24,7 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import Patiences from "views/Patiences.jsx";
+import NewPatience from "views/NewPatience.jsx";
 
 const dashboardRoutes = [
   {
@@ -81,6 +82,14 @@ const dashboardRoutes = [
     icon: "pe-7s-user",
     component: Patiences,
     layout: "/admin"
+  },
+  {
+    path: "/new",
+    name: "Nuovo paziente",
+    icon: "pe-7s-user",
+    component: NewPatience,
+    layout: "/admin",
+    redirect: true
   },
   {
     upgrade: true,

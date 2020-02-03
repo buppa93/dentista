@@ -27,6 +27,8 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import BaseDataTable from "components/BaseDataTable/BaseDataTable.jsx";
 import PatienceRepository from "../repositories/PatienceRepository.jsx";
 import {Redirect} from "react-router";
+import NewUserForm from "../components/Forms/NewUserForm";
+import {Patience} from "../models/Patience";
 
 const tableColums = [
   'name',
@@ -35,14 +37,24 @@ const tableColums = [
   'phone'
 ];
 
-const repo = new PatienceRepository();
+class NewPatience extends Component {
 
-class Patiences extends Component {
+  dataModel = new Patience();
+
+  constructor(props) {
+    super(props);
+    //this.dataModel.name = 'TestName';
+  }
 
   handleNewPatience = () => {
     alert('Handle new patient');
     //return <Redirect to='./new' />;
-    this.props.history.push('./new');
+    this.props.history.push('/new');
+  }
+
+  newUserHandler = (args) => {
+    let patience = new Patience(args);
+    console.log(patience)
   }
 
   render() {
@@ -53,26 +65,26 @@ class Patiences extends Component {
             <Row>
               <Col md={8}>
                 <Button bsStyle="info" fillLeft fill onClick={this.handleNewPatience}>
-                  Nuovo Paziente
+                  Eccomi
                 </Button>
               </Col>
               <Col md={4}>
-                Some Content Here
+                blablabla
               </Col>
             </Row>
             <Col md={12}>
               <Card
                 plain
-                title="Elenco pazienti"
+                title="Nuovo paziente"
                 category="Here is a subtitle for this table"
                 ctTableFullWidth
                 ctTableResponsive
                 content={
-                  <BaseDataTable
-                    columns={tableColums}
-                    repository={repo}
+                  <NewUserForm
+                      submitHandler={this.newUserHandler}
+                      model={this.dataModel}
                   >
-                  </BaseDataTable>
+                  </NewUserForm>
                 }
               />
             </Col>
@@ -83,4 +95,4 @@ class Patiences extends Component {
   }
 }
 
-export default Patiences;
+export default NewPatience;
