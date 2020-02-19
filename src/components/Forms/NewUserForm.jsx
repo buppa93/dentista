@@ -16,8 +16,9 @@
 
 */
 import React, { Component } from "react";
-import {FormInputs} from '../FormInputs/FormInputs.jsx';
-import Button from "react-bootstrap/lib/Button";
+import {BaseForm} from "./BaseForm.jsx";
+import PatienceRepository from "../../repositories/PatienceRepository";
+import Patience from "../../models/Patience.jsx";
 
 const dataModel = [
     {
@@ -27,7 +28,7 @@ const dataModel = [
         placeholder: 'Nome del paziente',
     },
     {
-        attribute: 'surName',
+        attribute: 'surname',
         label: 'Cognome',
         dataType: 'text',
         placeholder: 'Cognome del paziente',
@@ -45,27 +46,27 @@ const dataModel = [
         placeholder: 'Indirizzo email del paziente',
     },
     {
-        attribute: 'phone',
+        attribute: 'phoneNumber',
         label: 'Numero di telefono',
         dataType: 'tel',
         placeholder: 'Recapito telefonico del paziente',
     }
 ];
 
+const repo = new PatienceRepository();
+
 export class NewUserForm extends Component {
-
-    handleSubmit = (e) => {
-        console.log(this.props.model);
-        console.log(e);
-        console.log(e.target.querySelector('input[attribute="name"]').value);
-    }
-
     properties = [];
-
+    ncols = [
+        "col-md-3",
+        "col-md-3",
+        "col-md-3",
+        "col-md-3",
+        "col-md-3",
+    ];
     constructor(props) {
         super(props);
         dataModel.map( r => {
-            console.log(r);
             this.properties.push({
                 label: r.label,
                 type: r.dataType,
@@ -75,35 +76,18 @@ export class NewUserForm extends Component {
                 attribute: r.attribute,
                 onChange: this.handleChange
             });
+            return r;
         });
         this.state = {entity: this.props.model};
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange = (event) => {
-        let entity = this.state.entity;
-        console.log(event);
-        entity[event.target.attribute] = event.target.value;
-        this.setState({entity: entity});
-        console.log(event.target['attribute']);
-        console.log(event);
-        console.log(this.state.entity);
     }
 
     render() {
-        let form = <div className="content">
-            <FormInputs
-                ncols = {[
-                    "col-md-3",
-                    "col-md-3",
-                    "col-md-3",
-                    "col-md-3",
-                    "col-md-3",
-                ]}
-                properties = {this.properties}
-            />
-            <Button bsStyle="primary">Primary</Button>
-        </div>;
+        let form = <BaseForm
+            ncols={this.ncols}
+            properties={this.properties}
+            repository={repo}
+            model={new Patience()}
+            ></BaseForm>;
         return form;
     }
 }

@@ -24,27 +24,12 @@ import {
 
 import { Card } from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
-import BaseDataTable from "components/BaseDataTable/BaseDataTable.jsx";
-import PatienceRepository from "../repositories/PatienceRepository.jsx";
-import {Redirect} from "react-router";
 import NewUserForm from "../components/Forms/NewUserForm";
 import {Patience} from "../models/Patience";
-
-const tableColums = [
-  'name',
-  'username',
-  'email',
-  'phone'
-];
 
 class NewPatience extends Component {
 
   dataModel = new Patience();
-
-  constructor(props) {
-    super(props);
-    //this.dataModel.name = 'TestName';
-  }
 
   handleNewPatience = () => {
     alert('Handle new patient');

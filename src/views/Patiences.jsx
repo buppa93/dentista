@@ -26,13 +26,13 @@ import { Card } from "components/Card/Card.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 import BaseDataTable from "components/BaseDataTable/BaseDataTable.jsx";
 import PatienceRepository from "../repositories/PatienceRepository.jsx";
-import {Redirect} from "react-router";
 
 const tableColums = [
   'name',
-  'username',
+  'surname',
+  'fiscalCode',
   'email',
-  'phone'
+  'phoneNumber'
 ];
 
 const repo = new PatienceRepository();

@@ -7,7 +7,9 @@ class BaseDataTable extends Component {
     handleFetchData = async () => {
         let dataFetched = null;
         await this.props.repository.fetchAll().then( r => {
-            dataFetched = r;
+            console.log("-------------");
+            console.log(r);
+            dataFetched = r.data;
         }).catch( error => {console.log(error)});
         this.setState({rows: dataFetched});
     }
