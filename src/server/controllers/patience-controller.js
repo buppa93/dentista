@@ -66,7 +66,7 @@ updatePatience = async (req, res) => {
         })
     }
 
-    Patience.findOne({ _id: req.params._id }, (err, patience) => {
+    Patience.findOne({ _id: body._id }, (err, patience) => {
         if (err) {
             return res.status(404).json({
                 err,
@@ -95,7 +95,7 @@ updatePatience = async (req, res) => {
 }
 
 deletePatience = async (req, res) => {
-    await Patience.findOneAndDelete({ _id: req.params._id }, (err, patience) => {
+    await Patience.findOneAndDelete({ _id: req.body._id }, (err, patience) => {
         if (err) {
             return res.status(400).json({
                 success: false,
@@ -120,7 +120,7 @@ deletePatience = async (req, res) => {
 }
 
 getPatienceById = async (req, res) => {
-    await Patience.findOne({ _id: req.params._id }, (err, patience) => {
+    await Patience.findOne({ _id: req.query._id }, (err, patience) => {
         if (err) {
             return res.status(400).json({
                 success: false,
@@ -140,6 +140,38 @@ getPatienceById = async (req, res) => {
             success: true,
             data: patience
         })
+    }).catch(err => console.log(err))
+}
+
+getPatienceByParam = async (req, res) => {
+    await Patience.find({
+        $or:[
+            { _id: req.query.s },
+            { 'email': req.query.s },
+            { 'fiscalCode': req.query.s },
+            { 'name': req.query.s },
+            { 'phoneNumber': req.query.s },
+            { 'surname': req.query.s }
+        ]}, (err, patience) => {
+            if (err) {
+                return res.status(400).json({
+                    success: false,
+                    error: err
+                })
+            }
+
+            if (!patience) {
+                return res
+                    .status(404)
+                    .json({
+                        success: false,
+                        error: `Patience not found`
+                    })
+            }
+            return res.status(200).json({
+                success: true,
+                data: patience
+            })
     }).catch(err => console.log(err))
 }
 
